@@ -158,7 +158,7 @@ Claude Desktop and other local MCP hosts are supported through the desktop exten
 
 ## Release status
 
-The current public release is `v0.6.0`, using Decision Engine `1.13.0` and `base_rules@1.7.0`. It is free to download and use. It includes ten public tools, bounded local continuity, personalized single-workout generation, decision traces, package validation／dry-run／rollback, and an optional local Google Health connection. The Oura and WHOOP readers were implemented from their published API specifications and have not yet been validated against real responses; Apple Health, Garmin, Google Health, and Strava readers were developed from real export files.
+The current public release is `v0.6.1`, using Decision Engine `1.14.0` and `base_rules@1.7.0`. It is free to download and use. It includes ten public tools, bounded local continuity, personalized single-workout generation, decision traces, package validation／dry-run／rollback, and an optional local Google Health connection. The Oura and WHOOP readers were implemented from their published API specifications and have not yet been validated against real responses; Apple Health, Garmin, Google Health, and Strava readers were developed from real export files.
 
 ## Support
 
@@ -169,7 +169,7 @@ The current public release is `v0.6.0`, using Decision Engine `1.13.0` and `base
 
 Pacevera is proprietary software. See [LICENSE](LICENSE) for the applicable terms.
 
-## Pacevera v0.6.0
+## Pacevera v0.6.1
 
 The Claude Desktop extension includes Today’s Brief, evidence-first local export reading, and plain-language tool titles. During installation, choose **Your exported health data folder** and select the parent folder containing any of these optional subfolders:
 
@@ -210,13 +210,15 @@ consent, and at most 100 accounts can authorize the connection, counted over the
 app's entire lifetime. Reading your own exported folders, supplying evidence
 through your AI host, and every decision tool are unaffected.
 
+v0.6.1 asks before it plans and says more about why. Ask for a weekly plan without a goal, or with a goal Pacevera has no template for, and it asks what you want to train for instead of planning general fitness on your behalf. Each decision now notes whether today's HRV and resting heart rate sit above or below your own history, without repeating the readings. If two readings from the same moment disagree, or arrive in a unit that does not fit, Pacevera asks you to check them rather than picking one. Sending HYROX practice records adds a preparation summary — stations, full simulations, official fitness-test workloads and 5 km pace as measured — that does not assign a division, set paces or decide race eligibility. Session names can be up to 200 characters, and a session that names no muscles is no longer told those muscles carried no load. The rules behind every decision are the same as in v0.6.0.
+
 v0.6.0 keeps less about you and closes one gap. Pacevera no longer holds a name, height or weight anywhere: no decision ever read them, so they are gone from the local store — an existing store is tidied the next time it opens — and a Strava export's date of birth and weight stay in your file, unread. The folder your records are saved in, and who they belong to, are now set only by your own installation; nothing an assistant sends along with a question can change either. The extension's documentation and support links open this repository. Every decision is computed exactly as in v0.5.9.
 
 v0.5.9 adds an optional Garmin sync through Garmin's own Personal API. Create a Personal API key for your own account on Garmin Connect Web and save it in the extension settings, where Claude Desktop keeps it on your computer — never paste it into the conversation. Pacevera then calls only `personal.connectapi.garmin.com`, reads your own activities, daily summaries, sleep and HRV, normalizes them in memory and writes only the resulting evidence to `export_garmin_personal/normalized/`. Names, profile images, GPS coordinates and place names are not read. The Garmin delete tool removes only that folder; exports you placed there yourself are untouched. Without a key, Garmin readings still come from an export you place in the folder, as before.
 
 v0.5.9 also changes what a decision will do. Raising a session now needs a recovery reading from the last 24 hours, and when HRV is what carries it, the HRV reading itself must be that recent; a stale reading holds the session rather than raising it. One workout that reaches the folder through two sources — a Garmin activity also synced into Apple Health — is counted once. A measured HRV reading takes precedence over a vendor readiness score for the same day, and Body Battery is kept as evidence but no longer scored. Readings that carry only a date, such as Garmin's daily resting heart rate, are placed at local noon, so east of UTC+12 today's reading is read today. Sleep you only describe in conversation is treated as reference: it can no longer raise a session, and the answer asks you to add the night from your device. The local plan decision now reads your evidence folder instead of failing, asking to open the dashboard writes a local page with today's decision and a weekly-trends chart, and today's evidence preview also returns 7, 28 and 90-day personal reference values.
 
-v0.6.0 is free to download and use, as v0.5.9 was.
+v0.6.1 is free to download and use, as earlier versions were.
 
 v0.5.8 corrects three things a decision was saying that it could not support. When a movement you ruled out emptied a session, the replacement Pacevera offered had never been checked against the same restriction — say you cannot squat, and both barbell squats came out while a bodyweight squat went in, with the reason line mentioning only what had been removed. The replacement now passes the same check, and when nothing passes, no movement is named and the limitation says why instead of inventing one. It also tells you the movement is a fallback rather than something taken from your own plan, which it never used to mention at all. When no rule acts, the closing sentence no longer says every reading is in range: recovery below 60 on an already-easy day, or muscle-group fatigue at 40 on a day that is not hard, can cross a line without any rule acting, and the sentence now names the reading, the line, and why nothing stepped in. And on a week with no recorded training at all, it no longer says the target muscles carry no load from the last week — there was nothing to read, which is a different statement, and it is the one you now get.
 
